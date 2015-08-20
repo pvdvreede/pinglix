@@ -1,0 +1,2 @@
+defmodule Pinglix do
+end
