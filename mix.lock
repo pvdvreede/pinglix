@@ -1,1 +1,5 @@
-%{"plug": {:hex, :plug, "1.0.0"}}
+%{"combine": {:hex, :combine, "0.5.2"},
+  "plug": {:hex, :plug, "1.0.0"},
+  "poison": {:hex, :poison, "1.4.0"},
+  "timex": {:hex, :timex, "0.19.2"},
+  "tzdata": {:hex, :tzdata, "0.1.7"}}

@@ -3,7 +3,9 @@ defmodule Pinglix.Mixfile do
 
   def project do
     [app: :pinglix,
-     version: "0.0.1",
+     description: description,
+     package: package,
+     version:  "0.0.1",
      elixir: "~> 1.0",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -17,6 +19,16 @@ defmodule Pinglix.Mixfile do
     [applications: [:logger]]
   end
 
+  defp description do
+    "Plug compatible health check system in Elixir based on https://github.com/jbarnette/pinglish."
+  end
+
+  defp package do
+    [
+      contributors: ["Paul Van de Vreede"],
+      files: ["lib", "mix.exs", "README.md"]]
+  end
+
   # Dependencies can be Hex packages:
   #
   #   {:mydep, "~> 0.3.0"}
@@ -27,6 +39,9 @@ defmodule Pinglix.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    [{:plug, "~> 1.0"}]
+    [
+      {:timex, "~> 0.19.0"},
+      {:poison, "~> 1.4.0"},
+      {:plug, "~> 1.0"}]
   end
 end
