@@ -28,9 +28,9 @@ defmodule CheckerTest do
   end
 
   test "run builds the timeout state for the longer timeout" do
-    state = run(MyTimeoutPing, [:never_gonna_happen, :never_ever_happening], 400)
-    assert state.timeouts == [:never_ever_happening]
-    assert state.passed   == [:never_gonna_happen]
+    state = run(MyTimeoutPing, [:never_gonna_happen, :never_ever_happening, :never_gonna_happen2], 400)
+    assert state.timeouts            == [:never_ever_happening]
+    assert Enum.sort(state.passed)   == [:never_gonna_happen, :never_gonna_happen2]
     assert state.status              == "failures"
     assert state.http_code           == 500
   end
