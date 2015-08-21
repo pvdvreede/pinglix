@@ -6,7 +6,7 @@ defmodule CheckerTest do
     state = run(MyMixedPing, [:always_error, :always_failure], 1000)
     assert state.status                == "failures"
     assert Enum.sort(state.failures)   == [:always_error, :always_failure]
-    assert state.http_code             == 500
+    assert state.http_code             == 503
     assert state.always_error          == "Check failed."
     assert state.always_failure        == "I always fail."
   end
@@ -24,7 +24,7 @@ defmodule CheckerTest do
     assert Enum.sort(state.timeouts) == [:never_ever_happening, :never_gonna_happen]
     assert state.passed              == []
     assert state.status              == "failures"
-    assert state.http_code           == 500
+    assert state.http_code           == 503
   end
 
   test "run builds the timeout state for the longer timeout" do
@@ -32,6 +32,6 @@ defmodule CheckerTest do
     assert state.timeouts            == [:never_ever_happening]
     assert Enum.sort(state.passed)   == [:never_gonna_happen, :never_gonna_happen2]
     assert state.status              == "failures"
-    assert state.http_code           == 500
+    assert state.http_code           == 503
   end
 end

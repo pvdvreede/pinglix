@@ -25,7 +25,7 @@ defmodule StatusTest do
     struct = build |> set_failed(:test, "because...") |> set_failed(:test2, "it doesn't work")
     assert struct.failures == [:test, :test2]
     assert struct.status == "failures"
-    assert struct.http_code == 500
+    assert struct.http_code == 503
     assert struct.test == "because..."
     assert struct.test2 == "it doesn't work"
   end
@@ -50,7 +50,7 @@ defmodule StatusTest do
     struct = build |> set_timed_out(:test) |> set_timed_out(:test2)
     assert struct.timeouts == [:test, :test2]
     assert struct.status == "failures"
-    assert struct.http_code == 500
+    assert struct.http_code == 503
   end
 
   test "setting current time" do

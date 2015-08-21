@@ -8,7 +8,7 @@ defmodule Pinglix.Status do
   end
 
   def set_failed(status, check, message) do
-    %__MODULE__{status | status: "failures", failures: status.failures ++ [check], http_code: 500}
+    %__MODULE__{status | status: "failures", failures: status.failures ++ [check], http_code: 503}
     |> Map.put(check, message)
   end
 
@@ -22,7 +22,7 @@ defmodule Pinglix.Status do
   end
 
   def set_timed_out(status, check) do
-    %__MODULE__{status | status: "failures", timeouts: status.timeouts ++ [check], http_code: 500}
+    %__MODULE__{status | status: "failures", timeouts: status.timeouts ++ [check], http_code: 503}
   end
 
   def set_current_time(status) do

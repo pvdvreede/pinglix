@@ -11,21 +11,21 @@ defmodule MacroTest do
     assert msg == "All is well"
   end
 
-  test "failures return 500 and failures" do
+  test "failures return 503 and failures" do
     conn = conn(:get, "/_ping")
     conn = MyFailurePing.call(conn, [])
     %{"status" => status, "failures" => fails, "always_fail" => message} = Poison.decode!(conn.resp_body)
-    assert conn.status == 500
+    assert conn.status == 503
     assert status == "failures"
     assert fails == ["always_fail"]
     assert message == "I will always fail."
   end
 
-  test "timeouts return 500 and failures" do
+  test "timeouts return 503 and failures" do
     conn = conn(:get, "/_ping")
     conn = MyTimeoutPing.call(conn, timeout: 400)
     %{"status" => status, "timeouts" => timeouts} = Poison.decode!(conn.resp_body)
-    assert conn.status == 500
+    assert conn.status == 503
     assert status      == "failures"
     assert timeouts    == ["never_ever_happening"]
   end
