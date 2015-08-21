@@ -26,7 +26,7 @@ defmodule Pinglix.Status do
   end
 
   def set_current_time(status) do
-    %__MODULE__{status | now: Time.epoch(:secs)}
+    %__MODULE__{status | now: Time.now(:secs)}
   end
 
   def to_struct(status) do

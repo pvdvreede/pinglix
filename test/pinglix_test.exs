@@ -37,4 +37,13 @@ defmodule PinglixTest do
     %{"status" => status, "now" => _now} = Poison.decode!(conn.resp_body)
     assert status == "ok"
   end
+
+  test "now key is not locked to one time", %{conn: conn} do
+    :timer.sleep(1000)
+    second_conn = conn(:get, "/_ping")
+    second_conn = MySimplePing.call(second_conn, @opts)
+    %{"now" => first_now} = Poison.decode!(conn.resp_body)
+    %{"now" => second_now} = Poison.decode!(second_conn.resp_body)
+    refute first_now == second_now
+  end
 end
