@@ -37,6 +37,7 @@ defmodule Pinglix do
           result = unquote(block)
           case result do
             :ok        -> {:ok, unquote(name)}
+            {:ok, m}   -> {:ok, unquote(name), m}
             {:fail, m} -> {:fail, unquote(name), m}
             _          -> {:fail, unquote(name), "Pinglix check does not return the right clause"}
           end

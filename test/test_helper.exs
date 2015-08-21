@@ -48,6 +48,10 @@ defmodule MyOkPing do
   defcheck :always_ok do
     :ok
   end
+
+  defcheck :ok_with_message do
+    {:ok, "All is well"}
+  end
 end
 
 ExUnit.start()

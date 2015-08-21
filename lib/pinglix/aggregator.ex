@@ -13,6 +13,10 @@ defmodule Pinglix.Aggregator do
     Status.set_passed(status, check)
   end
 
+  def add_check({:ok, check, msg}, status) do
+    Status.set_passed(status, check, msg)
+  end
+
   def set_timeouts(status) do
     (status.checks -- (status.failures ++ status.passed))
     |> Enum.reduce status, &(Status.set_timed_out(&2, &1))

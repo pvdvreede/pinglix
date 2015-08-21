@@ -37,6 +37,15 @@ defmodule StatusTest do
     assert struct.http_code == 200
   end
 
+  test "setting passed with message" do
+    struct = build |> set_passed(:test, "hi") |> set_passed(:test2, "hello")
+    assert struct.passed == [:test, :test2]
+    assert struct.status == "ok"
+    assert struct.http_code == 200
+    assert struct.test == "hi"
+    assert struct.test2 == "hello"
+  end
+
   test "setting timeouts" do
     struct = build |> set_timed_out(:test) |> set_timed_out(:test2)
     assert struct.timeouts == [:test, :test2]
