@@ -2,11 +2,23 @@ defmodule StatusTest do
   use ExUnit.Case, async: true
   import Pinglix.Status
 
+  test "building status with all checks" do
+    struct = build([:check1, :check2])
+    assert struct.checks == [:check1, :check2]
+    assert struct.http_code == 200
+    assert struct.status == "ok"
+    assert struct.timeouts == []
+    assert struct.failures == []
+    assert struct.passed == []
+  end
+
   test "converting to struct" do
     struct = build |> to_struct
     assert struct[:timeouts] == nil
     assert struct[:failures] == nil
     assert struct[:http_code] == nil
+    assert struct[:checks] == nil
+    assert struct[:passed] == nil
   end
 
   test "setting failures" do
@@ -14,6 +26,13 @@ defmodule StatusTest do
     assert struct.failures == [:test, :test2]
     assert struct.status == "failures"
     assert struct.http_code == 500
+  end
+
+  test "setting passed" do
+    struct = build |> set_passed(:test) |> set_passed(:test2)
+    assert struct.passed == [:test, :test2]
+    assert struct.status == "ok"
+    assert struct.http_code == 200
   end
 
   test "setting timeouts" do
@@ -34,5 +53,7 @@ defmodule StatusTest do
     assert String.contains?(json, "\"timeouts\":[\"test\"]")
     refute String.contains?(json, "\"failures\":")
     refute String.contains?(json, "\"http_code\":")
+    refute String.contains?(json, "\"checks\":")
+    refute String.contains?(json, "\"passed\":")
   end
 end

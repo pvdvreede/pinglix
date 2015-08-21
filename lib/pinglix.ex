@@ -1,6 +1,4 @@
 defmodule Pinglix do
-  import Plug.Conn
-  alias Pinglix.Status
 
   defmacro __using__(_opts) do
     quote do
@@ -17,8 +15,9 @@ defmodule Pinglix do
         opts
       end
 
-      def call(conn = %Plug.Conn{path_info: ["_ping"], method: "GET"}, _opts) do
-        status = Pinglix.Checker.run(__MODULE__, @checks)
+      def call(conn = %Plug.Conn{path_info: ["_ping"], method: "GET"}, opts) do
+        opts = Keyword.merge([timeout: 29], opts)
+        status = Pinglix.Checker.run(__MODULE__, @checks, opts[:timeout])
                  |> Pinglix.Status.set_current_time
 
         conn

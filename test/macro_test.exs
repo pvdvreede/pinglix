@@ -19,6 +19,15 @@ defmodule MacroTest do
     assert fails == ["always_fail"]
   end
 
+  test "timeouts return 500 and failures" do
+    conn = conn(:get, "/_ping")
+    conn = MyTimeoutPing.call(conn, timeout: 400)
+    %{"status" => status, "timeouts" => timeouts} = Poison.decode!(conn.resp_body)
+    assert conn.status == 500
+    assert status      == "failures"
+    assert timeouts    == ["never_ever_happening"]
+  end
+
   test "ok check returns ok" do
     assert MyMixedPing.run_check(:always_ok) == {:ok, :always_ok}
   end

@@ -4,11 +4,32 @@ defmodule CheckerTest do
 
   test "run builds the failure state" do
     state = run(MyMixedPing, [:always_error, :always_failure], 1000)
-    assert state == %Pinglix.Status{status: "failures", failures: [:always_error, :always_failure], http_code: 500}
+    assert state.status                == "failures"
+    assert Enum.sort(state.failures)   == [:always_error, :always_failure]
+    assert state.http_code             == 500
   end
 
   test "run defaults to ok with no failures" do
     state = run(MyOkPing, [:always_ok], 1000)
-    assert state == %Pinglix.Status{status: "ok", failures: [], http_code: 200}
+    assert state.http_code == 200
+    assert state.passed    == [:always_ok]
+    assert state.failures  == []
+    assert state.status    == "ok"
+  end
+
+  test "run builds the timeout state for both" do
+    state = run(MyTimeoutPing, [:never_gonna_happen, :never_ever_happening], 200)
+    assert Enum.sort(state.timeouts) == [:never_ever_happening, :never_gonna_happen]
+    assert state.passed              == []
+    assert state.status              == "failures"
+    assert state.http_code           == 500
+  end
+
+  test "run builds the timeout state for the longer timeout" do
+    state = run(MyTimeoutPing, [:never_gonna_happen, :never_ever_happening], 400)
+    assert state.timeouts == [:never_ever_happening]
+    assert state.passed   == [:never_gonna_happen]
+    assert state.status              == "failures"
+    assert state.http_code           == 500
   end
 end

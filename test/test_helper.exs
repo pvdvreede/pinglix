@@ -19,7 +19,12 @@ defmodule MyTimeoutPing do
   use Pinglix
 
   defcheck :never_gonna_happen do
-    :timer.sleep 3
+    :timer.sleep 300
+    :ok
+  end
+
+  defcheck :never_ever_happening do
+    :timer.sleep 60000
     :ok
   end
 end

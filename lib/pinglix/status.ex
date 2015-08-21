@@ -1,14 +1,18 @@
 defmodule Pinglix.Status do
   alias Timex.Time
 
-  defstruct status: "ok", now: nil, failures: [], timeouts: [], http_code: 200
+  defstruct status: "ok", now: nil, passed: [], failures: [], timeouts: [], http_code: 200, checks: []
 
-  def build do
-    %__MODULE__{}
+  def build(checks \\ []) do
+    %__MODULE__{checks: checks}
   end
 
   def set_failed(status, check) do
     %__MODULE__{status | status: "failures", failures: status.failures ++ [check], http_code: 500}
+  end
+
+  def set_passed(status, check) do
+    %__MODULE__{status | passed: status.passed ++ [check]}
   end
 
   def set_timed_out(status, check) do
@@ -23,6 +27,8 @@ defmodule Pinglix.Status do
     status
     |> Map.delete(:__struct__)
     |> Map.delete(:http_code)
+    |> Map.delete(:checks)
+    |> Map.delete(:passed)
     |> remove_failures
     |> remove_timeouts
   end

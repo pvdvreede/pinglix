@@ -40,7 +40,9 @@ defmodule MyApp.Ping do
 end
 
 defmodule MyApp do
-  plug MyApp.Ping
+  # you can provide a timeout option in milli seconds if you dont want
+  # the default 29 seconds
+  plug MyApp.Ping, timeout: 59_000 # this will timeout after 59 seconds
 
   # other plugs and endpoints.
 end
