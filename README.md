@@ -9,7 +9,7 @@ Plug compatible health check system in Elixir based on https://github.com/jbarne
 Pinglix is an Elixir [Hex package](https://hex.pm/packages/pinglix), so you can just add the following to your `mix.exs` file under `deps`.
 
 ```elixir
-{:pinglix, "~> 1.0.0"}
+{:pinglix, "~> 1.1.0"}
 ```
 
 ## Usage
