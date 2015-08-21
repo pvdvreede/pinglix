@@ -5,7 +5,7 @@ defmodule Pinglix.Mixfile do
     [app: :pinglix,
      description: description,
      package: package,
-     version:  "0.0.1",
+     version:  "1.0.0",
      elixir: "~> 1.0",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -26,6 +26,7 @@ defmodule Pinglix.Mixfile do
   defp package do
     [
       contributors: ["Paul Van de Vreede"],
+      links: %{"Github" => "https://github.com/pvdvreede/pinglix"},
       licenses: ["MIT License"],
       files: ["lib", "mix.exs", "README.md", "LICENSE"]]
   end

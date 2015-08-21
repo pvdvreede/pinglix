@@ -4,6 +4,14 @@
 
 Plug compatible health check system in Elixir based on https://github.com/jbarnette/pinglish.
 
+## Setup
+
+Pinglix is an Elixir [Hex package](https://hex.pm/packages/pinglix), so you can just add the following to your `mix.exs` file under `deps`.
+
+```elixir
+{:pinglix, "~> 1.0.0"}
+```
+
 ## Usage
 
 At its simplest form, create a module that `use`es `Pinglix` which will generate a Plug compatiable middleware, put this module in your app to get the `/_ping` endpoint which follows numbers 1, 4, 6, 8, 9 of the [Pingolish](https://github.com/jbarnette/pinglish#the-spec) specification.
