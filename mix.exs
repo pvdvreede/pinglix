@@ -26,7 +26,8 @@ defmodule Pinglix.Mixfile do
   defp package do
     [
       contributors: ["Paul Van de Vreede"],
-      files: ["lib", "mix.exs", "README.md"]]
+      licenses: ["MIT License"],
+      files: ["lib", "mix.exs", "README.md", "LICENSE"]]
   end
 
   # Dependencies can be Hex packages:
