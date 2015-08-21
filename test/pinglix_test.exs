@@ -1,22 +1,26 @@
+defmodule MySimplePing do
+  use Pinglix
+end
+
 defmodule PinglixTest do
   use ExUnit.Case, async: true
   use Plug.Test
 
-  @opts Pinglix.init([])
+  @opts MySimplePing.init([])
 
   setup do
     conn = conn(:get, "/_ping")
-    conn = Pinglix.call(conn, @opts)
+    conn = MySimplePing.call(conn, @opts)
     {:ok, %{conn: conn}}
   end
 
   test "pinglix ignores all other paths" do
-    conn = Pinglix.call(conn(:get, "/somewhere"), @opts)
+    conn = MySimplePing.call(conn(:get, "/somewhere"), @opts)
     assert conn.state == :unset
   end
 
   test "pinglix ignores all other methods" do
-    conn = Pinglix.call(conn(:post, "/_ping"), @opts)
+    conn = MySimplePing.call(conn(:post, "/_ping"), @opts)
     assert conn.state == :unset
   end
 
