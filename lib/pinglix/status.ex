@@ -16,6 +16,11 @@ defmodule Pinglix.Status do
     %__MODULE__{status | passed: status.passed ++ [check]}
   end
 
+  def set_passed(status, check, message) do
+    %__MODULE__{status | passed: status.passed ++ [check]}
+    |> Map.put(check, message)
+  end
+
   def set_timed_out(status, check) do
     %__MODULE__{status | status: "failures", timeouts: status.timeouts ++ [check], http_code: 500}
   end

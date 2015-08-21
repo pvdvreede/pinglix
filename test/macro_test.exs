@@ -5,9 +5,10 @@ defmodule MacroTest do
   test "ok checks return ok status" do
     conn = conn(:get, "/_ping")
     conn = MyOkPing.call(conn, [])
-    %{"status" => status} = Poison.decode!(conn.resp_body)
+    %{"status" => status, "ok_with_message" => msg} = Poison.decode!(conn.resp_body)
     assert conn.status == 200
     assert status == "ok"
+    assert msg == "All is well"
   end
 
   test "failures return 500 and failures" do
@@ -29,8 +30,13 @@ defmodule MacroTest do
     assert timeouts    == ["never_ever_happening"]
   end
 
+
   test "ok check returns ok" do
     assert MyMixedPing.run_check(:always_ok) == {:ok, :always_ok}
+  end
+
+  test "ok check with message returns msg tuple" do
+    assert MyOkPing.run_check(:ok_with_message) == {:ok, :ok_with_message, "All is well"}
   end
 
   test "failure check returns fail" do

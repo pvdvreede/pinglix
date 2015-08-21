@@ -14,7 +14,7 @@ Pinglix is an Elixir [Hex package](https://hex.pm/packages/pinglix), so you can 
 
 ## Usage
 
-At its simplest form, create a module that `use`es `Pinglix` which will generate a Plug compatiable middleware, put this module in your app to get the `/_ping` endpoint which follows numbers 1, 4, 6, 8, 9 of the [Pingolish](https://github.com/jbarnette/pinglish#the-spec) specification.
+At its simplest form, create a module that `use`es `Pinglix` which will generate a Plug compatiable middleware, put this module in your app to get the `/_ping` endpoint which follows numbers 1, 4, 6, 8, 9 of the [Pinglish](https://github.com/jbarnette/pinglish#the-spec) specification.
 
 ```elixir
 defmodule MyApp.Ping do
@@ -33,19 +33,31 @@ defmodule MyApp.Ping do
   use Pinglix
 
   # return :ok if all is well, or :fail with a message
-  # any exceptions will set the check to fail and set the error
   # as the string
   defcheck :webservice do
-    {:ok, %HTTPoison{status_code: code}} = HTTPoison.get("https://downstream.webservicei/_ping")
+    {:ok, %HTTPoison{status_code: code}} = HTTPoison.get("https://downstream.webservice/_ping")
     case code do
       200 -> :ok
       _   -> {:fail, "Received status #{code} from my webservice."}
     end
   end
 
+  # any exceptions will set the check to fail and set the fail message to be the
+  # exception message
   defcheck :db do
     DB.ping!
     :ok
+  end
+
+  # you can add some info to the json response even if the check passes
+  # just return a tuple with :ok and a string instead of just the :ok atom
+  defcheck :s3_info do
+    count = S3.check_objects("bucket1")
+    if count > 100 do
+      {:fail, "S3 objects are at #{count}."}
+    else
+      {:ok, "S3 objects are at #{count}."}
+    end
   end
 end
 
