@@ -13,10 +13,11 @@ defmodule MacroTest do
   test "failures return 500 and failures" do
     conn = conn(:get, "/_ping")
     conn = MyFailurePing.call(conn, [])
-    %{"status" => status, "failures" => fails} = Poison.decode!(conn.resp_body)
+    %{"status" => status, "failures" => fails, "always_fail" => message} = Poison.decode!(conn.resp_body)
     assert conn.status == 500
     assert status == "failures"
     assert fails == ["always_fail"]
+    assert message == "I will always fail."
   end
 
   test "timeouts return 500 and failures" do

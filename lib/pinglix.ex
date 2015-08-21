@@ -1,5 +1,4 @@
 defmodule Pinglix do
-
   defmacro __using__(_opts) do
     quote do
       Module.register_attribute __MODULE__, :checks, accumulate: true

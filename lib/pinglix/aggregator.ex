@@ -5,8 +5,8 @@ defmodule Pinglix.Aggregator do
     Status.build(checks)
   end
 
-  def add_check({:fail, check, _}, status) do
-    Status.set_failed(status, check)
+  def add_check({:fail, check, msg}, status) do
+    Status.set_failed(status, check, msg)
   end
 
   def add_check({:ok, check}, status) do

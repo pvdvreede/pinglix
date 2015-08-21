@@ -7,6 +7,8 @@ defmodule CheckerTest do
     assert state.status                == "failures"
     assert Enum.sort(state.failures)   == [:always_error, :always_failure]
     assert state.http_code             == 500
+    assert state.always_error          == "Check failed."
+    assert state.always_failure        == "I always fail."
   end
 
   test "run defaults to ok with no failures" do

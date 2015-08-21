@@ -7,8 +7,9 @@ defmodule Pinglix.Status do
     %__MODULE__{checks: checks}
   end
 
-  def set_failed(status, check) do
+  def set_failed(status, check, message) do
     %__MODULE__{status | status: "failures", failures: status.failures ++ [check], http_code: 500}
+    |> Map.put(check, message)
   end
 
   def set_passed(status, check) do
