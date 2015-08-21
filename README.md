@@ -1,5 +1,7 @@
 # Pinglix
 
+[![Build Status](https://travis-ci.org/pvdvreede/pinglix.svg)](https://travis-ci.org/pvdvreede/pinglix)
+
 Plug compatible health check system in Elixir based on https://github.com/jbarnette/pinglish.
 
 ## Usage
