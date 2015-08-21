@@ -22,10 +22,12 @@ defmodule StatusTest do
   end
 
   test "setting failures" do
-    struct = build |> set_failed(:test) |> set_failed(:test2)
+    struct = build |> set_failed(:test, "because...") |> set_failed(:test2, "it doesn't work")
     assert struct.failures == [:test, :test2]
     assert struct.status == "failures"
     assert struct.http_code == 500
+    assert struct.test == "because..."
+    assert struct.test2 == "it doesn't work"
   end
 
   test "setting passed" do
