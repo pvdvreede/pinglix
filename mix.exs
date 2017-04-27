@@ -42,8 +42,8 @@ defmodule Pinglix.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
-      {:timex, "~> 0.19.0"},
-      {:poison, "~> 1.4.0"},
+      {:timex, "~> 3.0"},
+      {:poison, "~> 3.1.0"},
       {:plug, "~> 1.0"}]
   end
 end
