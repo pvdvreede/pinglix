@@ -13,7 +13,7 @@ defmodule StatusTest do
   end
 
   test "converting to struct" do
-    struct = build |> to_struct
+    struct = build() |> to_struct
     assert struct[:timeouts] == nil
     assert struct[:failures] == nil
     assert struct[:http_code] == nil
@@ -22,7 +22,7 @@ defmodule StatusTest do
   end
 
   test "setting failures" do
-    struct = build |> set_failed(:test, "because...") |> set_failed(:test2, "it doesn't work")
+    struct = build() |> set_failed(:test, "because...") |> set_failed(:test2, "it doesn't work")
     assert struct.failures == [:test, :test2]
     assert struct.status == "failures"
     assert struct.http_code == 503
@@ -31,14 +31,14 @@ defmodule StatusTest do
   end
 
   test "setting passed" do
-    struct = build |> set_passed(:test) |> set_passed(:test2)
+    struct = build() |> set_passed(:test) |> set_passed(:test2)
     assert struct.passed == [:test, :test2]
     assert struct.status == "ok"
     assert struct.http_code == 200
   end
 
   test "setting passed with message" do
-    struct = build |> set_passed(:test, "hi") |> set_passed(:test2, "hello")
+    struct = build() |> set_passed(:test, "hi") |> set_passed(:test2, "hello")
     assert struct.passed == [:test, :test2]
     assert struct.status == "ok"
     assert struct.http_code == 200
@@ -47,19 +47,19 @@ defmodule StatusTest do
   end
 
   test "setting timeouts" do
-    struct = build |> set_timed_out(:test) |> set_timed_out(:test2)
+    struct = build() |> set_timed_out(:test) |> set_timed_out(:test2)
     assert struct.timeouts == [:test, :test2]
     assert struct.status == "failures"
     assert struct.http_code == 503
   end
 
   test "setting current time" do
-    struct = build |> set_current_time
+    struct = build() |> set_current_time
     refute struct.now == nil
   end
 
   test "poison encoding for status" do
-    json = build |> set_timed_out(:test) |> Poison.encode!
+    json = build() |> set_timed_out(:test) |> Poison.encode!
     assert String.contains?(json, "\"status\":\"failures\"")
     assert String.contains?(json, "\"timeouts\":[\"test\"]")
     refute String.contains?(json, "\"failures\":")

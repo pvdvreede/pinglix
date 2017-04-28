@@ -3,13 +3,13 @@ defmodule Pinglix.Mixfile do
 
   def project do
     [app: :pinglix,
-     description: description,
-     package: package,
+     description: description(),
+     package: package(),
      version:  "1.1.1",
-     elixir: "~> 1.0",
+     elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps]
+     deps: deps()]
   end
 
   # Configuration for the OTP application
