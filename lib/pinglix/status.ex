@@ -1,5 +1,5 @@
 defmodule Pinglix.Status do
-  alias Timex.Time
+  use Timex
 
   defstruct status: "ok", now: nil, passed: [], failures: [], timeouts: [], http_code: 200, checks: []
 
@@ -26,7 +26,7 @@ defmodule Pinglix.Status do
   end
 
   def set_current_time(status) do
-    %__MODULE__{status | now: Time.now(:secs)}
+    %__MODULE__{status | now: Timex.Duration.now(:seconds)}
   end
 
   def to_struct(status) do

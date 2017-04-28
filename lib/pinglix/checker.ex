@@ -8,8 +8,8 @@ defmodule Pinglix.Checker do
   end
 
   defp run_checks(tasks, aggregator, timeout) do
-    timer_ref = make_ref
-    timer = Process.send_after(self, {:timeout, timer_ref}, timeout)
+    timer_ref = make_ref()
+    timer = Process.send_after(self(), {:timeout, timer_ref}, timeout)
     try do
       collect_results(tasks, aggregator, timer_ref)
     after
