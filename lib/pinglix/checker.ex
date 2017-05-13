@@ -27,12 +27,22 @@ defmodule Pinglix.Checker do
       {:timeout, ^timer_ref} ->
         collect_results([], Aggregator.set_timeouts(aggregator), timer_ref)
       msg ->
-        case Task.find(tasks, msg) do
+        case find_task(tasks, msg) do
           {result, task} ->
             collect_results(List.delete(tasks, task), Aggregator.add_check(result, aggregator), timer_ref)
           nil ->
             collect_results(tasks, aggregator, timer_ref)
         end
+    end
+  end
+
+  defp find_task(tasks, {ref, reply}) when is_reference(ref) do
+    Enum.find_value tasks, fn
+      %Task{ref: ^ref} = task ->
+        Process.demonitor(ref, [:flush])
+        {reply, task}
+      %Task{} ->
+        nil
     end
   end
 end
