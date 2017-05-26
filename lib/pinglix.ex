@@ -4,6 +4,7 @@ defmodule Pinglix do
       Module.register_attribute __MODULE__, :checks, accumulate: true
       import Pinglix
       import Plug.Conn
+      @dialyzer {:no_match, run_check: 1}
       @before_compile Pinglix
     end
   end
