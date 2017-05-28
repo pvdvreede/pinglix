@@ -27,6 +27,7 @@ defmodule PinglixTest do
   test "application responds to GET /_ping", %{conn: conn} do
     assert conn.state == :sent
     assert conn.status == 200
+    assert conn.halted
   end
 
   test "application uses correct content-type", %{conn: conn} do
