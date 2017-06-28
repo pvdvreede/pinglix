@@ -4,6 +4,7 @@ defmodule Pinglix do
       Module.register_attribute __MODULE__, :checks, accumulate: true
       import Pinglix
       import Plug.Conn
+      @dialyzer {:no_match, run_check: 1}
       @before_compile Pinglix
     end
   end
@@ -22,6 +23,7 @@ defmodule Pinglix do
         conn
         |> put_resp_content_type("application/json", "UTF-8")
         |> send_resp(status.http_code, Poison.encode!(status))
+        |> halt()
       end
 
       def call(conn, _opts), do: conn
