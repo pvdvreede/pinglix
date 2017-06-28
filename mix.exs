@@ -16,7 +16,7 @@ defmodule Pinglix.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger]]
+    [extra_applications: [:logger]]
   end
 
   defp description do
@@ -44,6 +44,7 @@ defmodule Pinglix.Mixfile do
   defp deps do
     [
       {:ex_doc, ">= 0.0.0", only: :dev},
+      {:dialyxir, "~> 0.5", only: :dev},
       {:timex, "~> 3.0"},
       {:poison, "~> 3.1.0"},
       {:plug, "~> 1.0"}]
