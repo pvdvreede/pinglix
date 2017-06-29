@@ -4,7 +4,6 @@ defmodule Pinglix do
       Module.register_attribute __MODULE__, :checks, accumulate: true
       import Pinglix
       import Plug.Conn
-      @dialyzer {:no_match, run_check: 1}
       @before_compile Pinglix
     end
   end
@@ -33,6 +32,7 @@ defmodule Pinglix do
   defmacro defcheck(name, do: block) do
     quote do
       @checks unquote(name)
+      @dialyzer {:no_match, run_check: 1}
 
       def run_check(unquote(name)) do
         try do
