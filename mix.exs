@@ -6,7 +6,7 @@ defmodule Pinglix.Mixfile do
      description: description(),
      package: package(),
      version:  "1.1.3",
-     elixir: "~> 1.4",
+     elixir: "~> 1.3",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps()]
