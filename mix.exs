@@ -16,7 +16,7 @@ defmodule Pinglix.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [extra_applications: [:logger]]
+    [extra_applications: [:logger, :timex]]
   end
 
   defp description do
