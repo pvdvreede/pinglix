@@ -1,7 +1,17 @@
-language: elixir
-elixir:
-  - 1.4
-otp_release:
-  - 20.0
-  - 19.3
-  - 18.3
+sudo: required
+dist: trusty
+
+env:
+  - ELIXIR_VERSION=1.3
+  - ELIXIR_VERSION=1.4
+  - ELIXIR_VERSION=1.5
+
+services:
+  - docker
+
+before_install:
+  - make pull
+  - make clean
+
+script:
+  - make test
