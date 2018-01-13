@@ -1,15 +1,18 @@
 # Pinglix
 
 [![Build Status](https://travis-ci.org/pvdvreede/pinglix.svg)](https://travis-ci.org/pvdvreede/pinglix)
+[![Hex pm](http://img.shields.io/hexpm/v/pinglix.svg)](https://hex.pm/packages/pinglix)
 
 Plug compatible health check system in Elixir based on https://github.com/jbarnette/pinglish.
+
+See [.travis.yml](.travis.yml) for the supported versions of Elixir/Erlang.
 
 ## Setup
 
 Pinglix is an Elixir [Hex package](https://hex.pm/packages/pinglix), so you can just add the following to your `mix.exs` file under `deps`.
 
 ```elixir
-{:pinglix, "~> 1.1.0"}
+{:pinglix, "~> 1.1"}
 ```
 
 ## Usage

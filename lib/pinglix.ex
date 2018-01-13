@@ -22,6 +22,7 @@ defmodule Pinglix do
         conn
         |> put_resp_content_type("application/json", "UTF-8")
         |> send_resp(status.http_code, Poison.encode!(status))
+        |> halt()
       end
 
       def call(conn, _opts), do: conn
@@ -31,6 +32,7 @@ defmodule Pinglix do
   defmacro defcheck(name, do: block) do
     quote do
       @checks unquote(name)
+      @dialyzer {:no_match, run_check: 1}
 
       def run_check(unquote(name)) do
         try do
