@@ -1,7 +1,7 @@
 defmodule Pinglix.Checker do
   alias Pinglix.Aggregator
 
-  def run(module, checks, timeout \\ 29000) do
+  def run(module, checks, timeout) do
     checks
     |> Enum.map(&Task.async(module, :run_check, [&1]))
     |> run_checks(Aggregator.new(checks), timeout)
