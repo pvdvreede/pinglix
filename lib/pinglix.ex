@@ -15,7 +15,7 @@ defmodule Pinglix do
       end
 
       def call(conn = %Plug.Conn{path_info: ["_ping"], method: "GET"}, opts) do
-        opts = Keyword.merge([timeout: 29], opts)
+        opts = Keyword.merge([timeout: 29_000], opts)
         status = Pinglix.Checker.run(__MODULE__, @checks, opts[:timeout])
                  |> Pinglix.Status.set_current_time
 
