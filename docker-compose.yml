@@ -1,0 +1,14 @@
+---
+version: "3.4"
+
+services:
+  elixir: &elixir
+    build: .
+    volumes:
+      - ".:/app"
+      - "$HOME/.mix:/root/.mix"
+
+  mix:
+    <<: *elixir
+    entrypoint:
+      - mix
