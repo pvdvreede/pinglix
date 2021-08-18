@@ -1,7 +1,11 @@
 # Pinglix
 
 [![Build Status](https://travis-ci.org/pvdvreede/pinglix.svg)](https://travis-ci.org/pvdvreede/pinglix)
-[![Hex pm](http://img.shields.io/hexpm/v/pinglix.svg)](https://hex.pm/packages/pinglix)
+[![Module Version](https://img.shields.io/hexpm/v/pinglix.svg)](https://hex.pm/packages/pinglix)
+[![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/pinglix/)
+[![Total Download](https://img.shields.io/hexpm/dt/pinglix.svg)](https://hex.pm/packages/pinglix)
+[![License](https://img.shields.io/hexpm/l/pinglix.svg)](https://github.com/pvdvreede/pinglix/blob/master/LICENSE.md)
+[![Last Updated](https://img.shields.io/github/last-commit/pvdvreede/pinglix.svg)](https://github.com/pvdvreede/pinglix/commits/master)
 
 Plug compatible health check system in Elixir based on https://github.com/jbarnette/pinglish.
 
@@ -9,7 +13,7 @@ See [.travis.yml](.travis.yml) for the supported versions of Elixir/Erlang.
 
 ## Setup
 
-Pinglix is an Elixir [Hex package](https://hex.pm/packages/pinglix), so you can just add the following to your `mix.exs` file under `deps`.
+Pinglix is an Elixir [Hex package](https://hex.pm/packages/pinglix), so you can just add the following to your `mix.exs` file under `deps`:
 
 ```elixir
 {:pinglix, "~> 1.1"}
@@ -17,7 +21,7 @@ Pinglix is an Elixir [Hex package](https://hex.pm/packages/pinglix), so you can 
 
 ## Usage
 
-At its simplest form, create a module that `use`es `Pinglix` which will generate a Plug compatiable middleware, put this module in your app to get the `/_ping` endpoint which follows numbers 1, 4, 6, 8, 9 of the [Pinglish](https://github.com/jbarnette/pinglish#the-spec) specification.
+At its simplest form, create a module that `use`es `Pinglix` which will generate a Plug compatible middleware, put this module in your app to get the `/_ping` endpoint which follows numbers 1, 4, 6, 8, 9 of the [Pinglish](https://github.com/jbarnette/pinglish#the-spec) specification.
 
 ```elixir
 defmodule MyApp.Ping do
@@ -77,26 +81,8 @@ There are some example ping Plugs at [test/test_helper.exs](test/test_helper.exs
 
 Using Pinglix will create a new plug with your checks builtin for you to include where you need. These checks will be run simultaneously. The request will return after 29 seconds as per the Pinglish specification, so all checks have 29 seconds each, rather than 29 seconds cumulatively.
 
-## License
-
-The MIT License (MIT)
+## Copyright and License
 
 Copyright (c) 2015 Paul Van de Vreede
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+This library licensed under the [MIT license](./LICENSE.md).
