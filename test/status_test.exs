@@ -59,7 +59,7 @@ defmodule StatusTest do
   end
 
   test "poison encoding for status" do
-    json = build() |> set_timed_out(:test) |> Poison.encode!
+    json = build() |> set_timed_out(:test) |> Poison.encode!()
     assert String.contains?(json, "\"status\":\"failures\"")
     assert String.contains?(json, "\"timeouts\":[\"test\"]")
     refute String.contains?(json, "\"failures\":")
