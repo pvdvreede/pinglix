@@ -8,7 +8,7 @@ defmodule Pinglix.Mixfile do
     [
       app: :pinglix,
       version: @version,
-      elixir: "~> 1.6",
+      elixir: "~> 1.10",
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       package: package(),
@@ -37,9 +37,9 @@ defmodule Pinglix.Mixfile do
   defp deps do
     [
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
-      {:dialyxir, "~> 0.5", only: :dev},
+      {:dialyxir, "~> 1.0", only: :dev},
       {:timex, "~> 3.0"},
-      {:poison, "~> 3.1.0"},
+      {:poison, "~> 3.0 or ~> 4.0 or ~> 5.0"},
       {:plug, "~> 1.0"}
     ]
   end
