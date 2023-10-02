@@ -46,6 +46,7 @@ defmodule Pinglix.Mixfile do
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.14", only: :test},
+      {:castore, "~> 1.0", only: :test},
       {:timex, "~> 3.0"},
       {:poison, "~> 5.0"},
       {:plug, "~> 1.0"}
