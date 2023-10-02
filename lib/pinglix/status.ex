@@ -1,7 +1,13 @@
 defmodule Pinglix.Status do
   use Timex
 
-  defstruct status: "ok", now: nil, passed: [], failures: [], timeouts: [], http_code: 200, checks: []
+  defstruct status: "ok",
+            now: nil,
+            passed: [],
+            failures: [],
+            timeouts: [],
+            http_code: 200,
+            checks: []
 
   def build(checks \\ []) do
     %__MODULE__{checks: checks}

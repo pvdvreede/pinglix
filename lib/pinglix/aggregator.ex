@@ -19,6 +19,6 @@ defmodule Pinglix.Aggregator do
 
   def set_timeouts(status) do
     (status.checks -- (status.failures ++ status.passed))
-    |> Enum.reduce(status, &(Status.set_timed_out(&2, &1)))
+    |> Enum.reduce(status, &Status.set_timed_out(&2, &1))
   end
 end
