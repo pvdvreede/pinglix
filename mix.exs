@@ -13,7 +13,14 @@ defmodule Pinglix.Mixfile do
       start_permanent: Mix.env() == :prod,
       package: package(),
       deps: deps(),
-      docs: docs()
+      docs: docs(),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ]
     ]
   end
 
@@ -37,9 +44,10 @@ defmodule Pinglix.Mixfile do
   defp deps do
     [
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
-      {:dialyxir, "~> 0.5", only: :dev},
+      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
+      {:excoveralls, "~> 0.14", only: :test},
       {:timex, "~> 3.0"},
-      {:poison, "~> 3.1.0"},
+      {:poison, "~> 5.0"},
       {:plug, "~> 1.0"}
     ]
   end
