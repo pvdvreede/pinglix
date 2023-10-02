@@ -1,0 +1,63 @@
+name: Elixir
+on: push
+
+env:
+  MIX_ENV: test
+
+# https://github.com/elixir-lang/elixir/blob/master/lib/elixir/pages/compatibility-and-deprecations.md
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: erlef/setup-beam@v1
+      with:
+        otp-version: "26.x"
+        elixir-version: "1.15.x"
+    - uses: actions/cache@v3
+      with:
+        path: |
+          deps
+          _build
+        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-mix-
+    - run: mix deps.get
+    - run: mix compile --warnings-as-errors
+    - run: mix deps.unlock --check-unused
+    - run: mix hex.audit
+    # -run: mix doctor
+    - run: mix format --dry-run --check-formatted
+    - run: mix dialyzer
+
+  elixir_1_15:
+    runs-on: ubuntu-latest
+    name: OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
+    strategy:
+      matrix:
+        otp: [24.x, 25.x, 26.x]
+        elixir: [1.15.x]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{matrix.otp}}
+          elixir-version: ${{matrix.elixir}}
+      - run: mix do deps.get, compile --all-warnings --warnings-as-errors
+      - run: mix coveralls.github
+
+  elixir_1_14:
+    runs-on: ubuntu-latest
+    name: OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
+    strategy:
+      matrix:
+        otp: [24.x, 25.x]
+        elixir: [1.14.x]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{matrix.otp}}
+          elixir-version: ${{matrix.elixir}}
+      - run: mix do deps.get, compile --all-warnings --warnings-as-errors
+      - run: mix coveralls.github
